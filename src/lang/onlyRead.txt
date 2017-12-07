@@ -1,0 +1,28 @@
+﻿首先针对多语言思路为
+总体思路参考vuelang.peng
+cn和en文件夹分别存放各个组件的中英文配置；
+cn.js和en.js分别为对应文件夹的配置文件的汇总；
+langplugin为多语言总出口
+
+
+使用vueil18n插件进行使用
+再main.js中引入langplugin.js并将对象挂在到Vue属性上
+import i18n from './lang/Langplugin'
+new Vue({
+  el: '#app',
+  router,
+  i18n,//挂载
+  store,
+  template: '<App/>',
+  components: {
+    App
+  }
+})
+语言控制：直接在组件内设置 this.$i18n.locale = "en"||cn;
+
+
+
+
+使用自己扩展的文件（和插件扩展原理一样，只是不用调用use方法。和官网插件是一样的只是对Vue对象属性和方法的扩展。）
+再main.js中引入langplugin.js即可使用。
+语言控制：直接在组件内调用 this.$i18n.setlang("en"||"cn")

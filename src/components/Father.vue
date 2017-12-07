@@ -3,7 +3,7 @@
   <child  :child-data="asyncData" :loadimg='loadimg'></child>
    
    {{$t("message.fathervue.father") }}&&{{$t("message.hello") }}**{{$t('message.fathervue.chi')}}
-  {{count}}
+   <!-- {{this.$i18n.messages}}&*&*&*{{this.$i18n.locale}} -->
   父组件
 
   <div>vuex{{checklen}}{{add}}&&&&&{{es6arr}}</div>
@@ -85,6 +85,7 @@ export default {
     },
     changelang() {
       this.$i18n.locale = "en";
+      // this.$i18n.setlang("en");
       this.increment(true);
       let that=this;
          that.pushArr();
