@@ -1,5 +1,6 @@
 <template>
  <div  @click='changelang'  id='father'>
+   {{a}}{{b}}<br/>
   <child  :child-data="asyncData" :loadimg='loadimg'></child>
    
    {{$t("message.fathervue.father") }}&&{{$t("message.hello") }}**{{$t('message.fathervue.chi')}}
@@ -23,6 +24,7 @@
 
 <script>
 import child from "@/components/Children";
+import mixin from "@/mixins/all";
 import { mapGetters } from "vuex";
 import { mapState } from "vuex";
 import { mapMutations } from "vuex";
@@ -33,9 +35,11 @@ export default {
     return {
       asyncData: false,
       src: [],
-      es6arr:[]
+      es6arr:[],
+      b:"vbvbvb"
     };
   },
+  mixins:[mixin],
   computed: {
     ...mapGetters(["addcount",'checklen' ]),
     // ...mapGetters('../vuex/childrenvuex/one.js',['checklen']),
