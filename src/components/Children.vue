@@ -28,9 +28,9 @@ export default {
   }},
   mixins:[mixin],
   mounted() {
-    setTimeout(()=>{
-      this.a+=1
-    })
+    // setTimeout(()=>{
+    //   this.a+=1
+    // })
     console.log(this.$refs.yy)
     console.log(this.childData); // 空值
   },
