@@ -2,7 +2,7 @@ mixins主要解决多个组件共用同一属性，钩子，指令，等（包�
 全局注册一个混合，影响注册之后所有创建的每个 Vue 实例;不建议使用全局  
 默认混合规则：
 生命周期：组件和mixins都会执行，优先执行mixins
-值为对象的选项，例如 methods, components 和 directives，将被混合为同一个对象。两个对象键名冲突时，取组件对象的键值对。
+值为对象的选项，例如data, methods, components 和 directives， computed 和watch,将被混合为同一个对象。两个对象键名冲突时，取组件对象的键值对。
 
 使用：如validate.js就是一个暴露出来的mixins
 在需要使用mixins的组件内添加：mixin:[];选项。将mixins引入即可；
@@ -16,4 +16,5 @@ mixins主要解决多个组件共用同一属性，钩子，指令，等（包�
 如果组件和mixins都有data,如果有重复的数据则以组件为准，否则，会将mixins的data，合并到组件已有的data中
 
 
-computed 和watch不知道如何混合？？？？？？？？
+mixns只是把组建共有部分提出来注入到组建中，故每个组件引入的mixns中的data，等值互不影响。
+A中改变mixi的状态只对A组件起作用，不影响其他组件内mixins的任何状态。

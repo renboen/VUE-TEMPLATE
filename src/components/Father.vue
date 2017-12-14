@@ -1,6 +1,6 @@
 <template>
  <div  @click='changelang'  id='father'>
-   {{a}}{{b}}<br/>
+   {{a}}{{b}}{{c}}<br/>
   <child  :child-data="asyncData" :loadimg='loadimg'></child>
    
    {{$t("message.fathervue.father") }}&&{{$t("message.hello") }}**{{$t('message.fathervue.chi')}}

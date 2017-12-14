@@ -1,5 +1,6 @@
 <template>
  <div @click='loadimg' >
+   {{a}}
    <div v-for='item in arr' ref='div'>22222</div>
    <div  ref='yy'>22222</div>
   
@@ -8,6 +9,8 @@
 </template>
 
 <script>
+import mixin from "@/mixins/all";
+
 export default {
   // props: {
   //   childData:{
@@ -23,7 +26,11 @@ export default {
   data(){return{
     arr:[1,2,3]
   }},
+  mixins:[mixin],
   mounted() {
+    setTimeout(()=>{
+      this.a+=1
+    })
     console.log(this.$refs.yy)
     console.log(this.childData); // 空值
   },
