@@ -3,12 +3,15 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import ('./plugin/Bus')
 import i18n from './lang/Langplugin'
 import LazyImg from '@/plugin/Lazy'
 import store from './vuex' 
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 Vue.config.productionTip = false
+// console.log(bus)
+// Vue.use(bus)
 Vue.use(MintUI)
 Vue.use(LazyImg)
 console.log(i18n)

@@ -61,6 +61,8 @@ export default {
   },
   created() {},
   mounted() {
+    console.log(this.$bus)
+    console.table({name:"19",age:30})
     // setTimeout模拟异步数据
     // alert(this.$i18n.locale)
     setTimeout(() => {
