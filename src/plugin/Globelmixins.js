@@ -7,6 +7,9 @@ export default {
         Vue.common = 'plugin插件初始化完成';
         Vue.height = window.innerHeight;
         Vue.width = window.innerWidth;
+
+
+        //全局混合应该以插件的形式。并且设置一个flag确定那个组件需要执行混合的函数
         Vue.mixin({
             created() {
                 let myOption = this.$options.myOption;
