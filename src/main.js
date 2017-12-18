@@ -9,9 +9,8 @@ import LazyImg from '@/plugin/Lazy'
 import store from './vuex' 
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
+import http from "./axio/axioGlobelConfigPlugin"
 Vue.config.productionTip = false
-// console.log(bus)
-// Vue.use(bus)
 Vue.use(MintUI)
 Vue.use(LazyImg)
 console.log(i18n)

@@ -6,6 +6,8 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
     state: {
       count: 0,
+      token:'',
+      clearLoginMsg:'',
       // ...onevuexmoudle.state
     },
     getters:{
@@ -15,6 +17,15 @@ const store = new Vuex.Store({
       }
     },
     mutations: {
+      changetoken(state,token){
+      state.token=token;
+      localStorage.setItem("token",state.token)
+      return state.token
+      },
+      loginout(state){
+        
+        return state.clearLoginMsg=''
+      },
       // ...onevuexmoudle.mutations,
       increment (state,boolen) {
         
@@ -28,6 +39,11 @@ const store = new Vuex.Store({
        return state.count++
       }
     },
+//     actions:{
+// token({state,commit,rootstate}){
+//   commit(changetoken)
+// }
+//     },
     modules:{
         onevuexmoudle
     }

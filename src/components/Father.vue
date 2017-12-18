@@ -28,25 +28,26 @@ import mixin from "@/mixins/all";
 import { mapGetters } from "vuex";
 import { mapState } from "vuex";
 import { mapMutations } from "vuex";
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 export default {
   name: "Father",
   data() {
     return {
       asyncData: false,
       src: [],
-      es6arr:[],
-      b:"vbvbvb"
+      es6arr: [],
+      b: "vbvbvb"
     };
   },
-  mixins:[mixin],
+  mixins: [mixin],
   computed: {
-    ...mapGetters(["addcount",'checklen' ]),
+    ...mapGetters(["addcount", "checklen"]),
     // ...mapGetters('../vuex/childrenvuex/one.js',['checklen']),
     ...mapState({
       count: state => state.count,
       // add: state => state.add,
-      add: state =>state.onevuexmoudle.add,
+      add: state => state.onevuexmoudle.add,
+      token: state => state.token
     })
     // count(){
     //   console.log(this.$store.getters.addcount)
@@ -61,8 +62,20 @@ export default {
   },
   created() {},
   mounted() {
-    console.log(this.$bus)
-    console.table({name:"19",age:30})
+    let that = this;
+    this.$http
+      .get("/data.json")
+      .then(data => {
+        that.$http.get("/data.json").then(function(d) {
+          console.log(d);
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+    console.log(this.$bus);
+    console.table({ name: "19", age: 30 });
     // setTimeout模拟异步数据
     // alert(this.$i18n.locale)
     setTimeout(() => {
@@ -77,8 +90,8 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['pushArraction']),
-    ...mapMutations(["increment",'pushArr']),
+    ...mapActions(["pushArraction"]),
+    ...mapMutations(["increment", "pushArr", "changetoken"]),
     loadimg() {
       let that = this;
       Promise.all([
@@ -93,15 +106,12 @@ export default {
       this.$i18n.locale = "en";
       // this.$i18n.setlang("en");
       this.increment(true);
-      let that=this;
-         that.pushArr();
-      that.pushArraction().then(function(){
-        alert(22)
-      that.es6arr=[...that.add]
-
-      })
-      
-      
+      let that = this;
+      that.pushArr();
+      that.pushArraction().then(function() {
+        alert(22);
+        that.es6arr = [...that.add];
+      });
     }
   }
   // directives: {
