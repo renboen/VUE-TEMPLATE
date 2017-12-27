@@ -62,6 +62,10 @@ export default {
   },
   created() {},
   mounted() {
+
+
+
+
     let that = this;
     this.$http
       .get("/data.json")
@@ -130,3 +134,9 @@ export default {
   // }
 };
 </script>
+<style scoped>
+img{
+  width: 100%;
+}
+
+</style>

@@ -5,6 +5,7 @@ import store from '../vuex'
 import router from '../router'
 console.log(store.state)
 console.log(router)
+
 //参考网址： https://www.kancloud.cn/yunye/axios/234845
 //https://github.com/superman66/vue-axios-github/blob/master/src/router.js
 
@@ -42,10 +43,10 @@ axios.interceptors.response.use(function (response) {
     // 对响应数据做点什么
     return response;
   }, function (err) {
-    if("token过期"){//如果token存在但是
-      store.commit("loginout");
-      router.replace("/login")
-    }
+    // if("token过期"){//如果token存在但是
+    //   store.commit("loginout");
+    //   router.replace("/login")
+    // }
     console.log(`错误发生在${err.config.url}错误为${err}`)
     return Promise.reject(err);
   });
