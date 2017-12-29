@@ -1,0 +1,85 @@
+Vuex 的理解：
+ Vuex是一个状态管理,是一个应用的部分数据（state）来源.当然也可以作为整个应用的全部state来源。
+ 建议使用规则：组件私有的state写到组件内部。只将公用的state放到Vuex对象中。将Vuex当做应用state的部分来源，而不是全部。
+ 可以使用规则:所有组件的state等都被放到VUEX中。对组件私有的state等s设置命名空间为独有，对共享state设置命名空间为全局。不建议将
+ 所有组建的state全部设置为全局命名空间。
+
+数据来源可以有两类：
+第一种为组件本身独有的数据，这些数据在开发过程中一般会写到组件内，通过props穿给子组件。
+比如A B 两个组件没有任何state的公用。状态没有交集，完全独立。就可以将他们的状态完全写到组件内部。
+
+第二类是公用数据来源。A B两个组件存在公用数据。
+这个时候可以采用的方案如下：
+1，给A B两个A B两个组件一个共同的父及组件。通过父组件管理公用状态，然后传递给子组件。如果组件太多，代码会很臃肿。不推荐。
+
+2,通过Vue的插件扩展功能，扩展出来一个所有组件都能访问的响应式的对象。可参考plugin中，手动实现多语言。
+该方法可以很好的解决公用状态的问题。但当组件太多的时候很难知道具体哪个组件对公用的state进行了更改，由于是响应式的数据,
+当一个组件改变会影响其他所有共用该state的组件。所以对于debug和测试很不方便。
+但是对于共用状态很少，又不想使用vuex的需求，还是可以满足的
+
+3，使用Vuex.Vuex是一个应用的部分或全部状态来源。默认情况下Vuex的state，getter,mutations，actions。都是挂载到全局的.
+除非你设置了命名空间为true。
+
+
+
+vuex默认情况下是挂载到全局的，也就是说，所有组件都是可以-----直接------访问到的Vuex中state，getter,mutations，actions.
+但当设置了命名空间为true时，就说明这部分state是局部的。比如A组件有一个自己的state.在B组件内是------不能直接----访
+问到的Vuex中state，getter等的。但是可以间接通过全局的Vuex对象去访问A组件内的state等。
+
+
+当组件内部data和vuex共同存在的时候，data 和vuex中不能有相同值。否则有already defined的错误
+ 虽然全局方法和局部方法可以同名，但最好不要。以便于追踪变化
+
+
+
+全局命名空间内的所有state等和局部命名空间的不会产生污染，但要注意注入的时候，键不要相同。参考moduleA和globlestates。
+注入的时候：
+
+ ...mapState(["myNum"]),//全局state的mynum
+      ...mapState("moduleA",{//局部state的myNum
+        moduleAnum:"myNum"
+      }),
+注入的时候只要给变量变换下键moduleAnum。如果不变键值。最后注入的覆盖之前注入的
+
+你可以在局部模块之间，或者局部与全局之间进行state的获取，但提交multations必须在本神模块之间。例如A模块内
+需要更改B模块的state时，绝对不能在A模块的multations中直接或者间接通过rootstate获得B的state，进行改变操作：
+在globleMutations中我想在更改全局命名空间state的时候也去改变moduleA的state。
+错误做法：
+   [types.ADD_NUM](state,v=0) {
+        state.myNum+=v
+        //会污染局部空间状态，不能明确知道谁对state提交了更改，应该在组件内显示的去提交对局部state改变的mutations  state.moduleA.myNum++
+    },
+正确做法：1应该在组件内提交一次全局mutations，再提交一次局部multations(参考组件VuexA db方法)
+2,使用actions异步提交两次更该。官网。
+
+
+
+
+//全局命名空间和局部命名空间在同一个组件内导入的时候下面这种写法会报错，
+import { createNamespacedHelpers } from 'vuex'
+import { mapGetters,mapState,mapMutations, mapActions} from "vuex";
+const { mapState} = createNamespacedHelpers('moduleA')
+
+
+
+
+
+!!!!!!!!!!!!!!!
+用这种直接输出一个对象的
+const getters={
+    isOdd:state=>{
+      return state.myNum%2===0?"是偶数" :"是奇数"
+    },
+    globleMixinModuleA:(state,getters)=>{
+      //全局getters内访问局部命名空间getters
+      // return getters['moduleA/isOdd']
+      //全局getters内访问局部命名空间state
+      return (state.myNum+state.moduleA.myNum)%2===0?"/全局/和局部A混合后计算结果是偶数":"全局和局部A混合后计算结果是奇数"
+    }
+  }
+  export default getters
+
+
+
+如何防止vuex刷新重置的问题
+

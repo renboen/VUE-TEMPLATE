@@ -93,6 +93,7 @@ export default {
       console.log(key);
     }
   },
+  
   methods: {
     ...mapActions(["pushArraction"]),
     ...mapMutations(["increment", "pushArr", "changetoken"]),

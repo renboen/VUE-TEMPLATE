@@ -1,7 +1,11 @@
 <template>
   <div>
     <h1>登录页面</h1>
+    <h2>underscore.js</h2>
     <div @click="login">点击登录</div>
+    <router-link active-class="act" :to='{name:"vuexa"}'>VuexA</router-link>
+    <router-link :to='{name:"vuexb"}'>VuexB</router-link>
+    <router-link :to='{name:"vuexc"}'>VuexC</router-link>
   </div>
 </template>
 <script >
@@ -62,4 +66,10 @@ export default {
   }
 };
 </script>
+<style scoped>
+.act{
+  color:red
+}
+</style>
+
 
