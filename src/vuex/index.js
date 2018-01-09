@@ -36,9 +36,9 @@ if (module.hot) {
   ], () => {
   console.log("热重载23")
     store.hotUpdate({
-      getters: require('./globleGetters').default,
-      actions: require('./globleActions').default,
-      mutations: require('./globleMutations').default,
+      getters: require('./globleGetters'),
+      actions: require('./globleActions'),
+      mutations: require('./globleMutations'),
       modules: {moduleA:require("./modules/moduleA").default}
     })
   })
